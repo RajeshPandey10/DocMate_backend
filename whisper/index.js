@@ -1,15 +1,26 @@
-const express = require('express');
-const multer = require('multer');
-const cors = require('cors');
-const { transcribeAudio } = require('../transcibe');
-const path = require('path');
-const fs = require('fs');
+const express = require("express");
+const multer = require("multer");
+const cors = require("cors");
+const { transcribeAudio } = require("../transcibe");
+const path = require("path");
+const fs = require("fs");
 
 const app = express();
-app.use(cors());
-const upload = multer({ dest: 'uploads/' });
 
-app.post('/api/transcribe', upload.single('audio'), async (req, res) => {
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+// Handle preflight requests
+
+const upload = multer({ dest: "uploads/" });
+
+app.post("/api/transcribe", upload.single("audio"), async (req, res) => {
   try {
     const audioPath = req.file.path;
     const transcription = await transcribeAudio(audioPath);
