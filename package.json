@@ -4,7 +4,7 @@
   "main": "transcibe.js",
   "scripts": {
     "start": "node whisper/index.js",
-    "dev": "nodemon wishper/index.js"
+    "dev": "nodemon whisper/index.js"
     
   },
   "keywords": [],
